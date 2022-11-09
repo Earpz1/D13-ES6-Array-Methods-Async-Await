@@ -1,5 +1,6 @@
 const cart = []
 let books = []
+let cartCount = 0
 
 window.onload = function () {
   getBooks()
@@ -51,6 +52,24 @@ const addToCart = function (event) {
   event.target.innerHTML = 'Added to cart'
   event.target.classList.remove('btn-primary')
   event.target.classList.add('btn-success')
+
+  const cartTotal = document.querySelector('.total-items')
+  cartTotal.innerHTML = cart.length
+
+  const button = event.target
+  button.setAttribute('onclick', 'removeFromCart(event)')
+}
+
+const removeFromCart = function (event) {
+  const book = cart.indexOf(event.target.id)
+  cart.splice(book, 1)
+
+  event.target.setAttribute('onclick', 'addToCart(event)')
+  event.target.innerHTML = 'Add to cart'
+  event.target.classList.remove('btn-success')
+  event.target.classList.add('btn-primary')
+
+  console.log(cart)
 }
 
 const removeBook = function (event) {
